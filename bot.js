@@ -19,14 +19,14 @@ bot.onText(/(https?|ftp):\/\/[^\s/$.?#].[^\s]*/i, (msg, match) => {
 function postToLinkhut(url, title, description) {
 	const urlStr = `&url=${encodeURIComponent(url)}`
 	const safeTitle = title ? title : 'placeholder title';
-	const titleStr = `&title=${encodeURIComponent(safeTitle)}`
+	const titleStr = `&description=${encodeURIComponent(safeTitle)}`
 
 	const safeDesc = description ? description : 'placeholder description';
-	const descStr = `&description=${encodeURIComponent(safeDesc)}`;
+	const descStr = `&extended=${encodeURIComponent(safeDesc)}`;
 
 	const api = "https://api.ln.ht/v1/posts/add?"
 
-	const post = `${api}${urlStr}${titleStr}${descStr}`
+	const post = `${api}${urlStr}${titleStr}${descStr}&toread=yes`
 	const headers = {
 		'Authorization': `Bearer ${process.env.LH_KEY}`,
 		'Content-Type': 'application/json',
